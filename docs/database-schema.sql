@@ -1,5 +1,5 @@
 -- Create dtb
-CREATE DATABASE ryb-management;
+CREATE DATABASE ryb_management;
 
 -- 1. Table: user (auth and roles)
 CREATE TABLE users(
@@ -11,7 +11,7 @@ CREATE TABLE users(
     avatar_url VARCHAR(255),
     role VARCHAR(20) DEFAULT 'regular' CHECK (role IN('admin', 'privileged', 'regular')),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP CURRENT_TIMESTAMP
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 -- 2. Table: buildings
@@ -36,7 +36,7 @@ CREATE TABLE rooms(
     amenities TEXT,
     room_fee DECIMAL(10, 2),
     images JSONB DEFAULT '[]',
-    created_at TIMESTAMP DEFAUT CURRENT_TIMESTAMP,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
     UNIQUE(building_id, room_number)
 );
