@@ -3,7 +3,7 @@
 
 import {User, SignOptions} from '../types/user';
 import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
+import jwt, { JwtPayload } from 'jsonwebtoken';
 
 // 1. hasing pw
 export const hashPassword = async(password: string): Promise<string> => {
@@ -42,10 +42,14 @@ export const generateToken = (user: User): string => {
     );
 };
 
+export interface DecodedToken extends JwtPayload {
+  id: string;
+}
+
 // 4. veryfying jwts
-export const verifyToken = (token: string) => {
+export const verifyToken = (token: string): DecodedToken => {
     return jwt.verify(
         token,
         process.env.JWT_SECRET!
-    );
+    ) as DecodedToken;
 };
