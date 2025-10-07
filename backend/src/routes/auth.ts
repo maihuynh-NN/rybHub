@@ -1,10 +1,10 @@
 // routes that match HTTP endpoints, to corresponding func within AuthController.ts
 
-import Routes from 'express';
+import {Router} from 'express';
 import {AuthController} from '../controllers/authController';
 import {authenticateToken} from '../middleware/auth';
 
-const router = Routes();
+const router = Router();
 
 router.post('/register', AuthController.register)
 router.post('/login', AuthController.login)

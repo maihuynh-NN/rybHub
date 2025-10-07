@@ -19,6 +19,20 @@ pool.on('connect', () => {
 
 pool.on('error', (err) => {
     console.log("[src/config/databse] Database connection error", err);
+    console.error('Connection details:', {
+        host: process.env.DB_HOST,
+        port: process.env.DB_PORT,
+        database: process.env.DB_NAME,
+        user: process.env.DB_USER,
+    });
+});
+
+pool.query('SELECT NOW()', (err, res) => {
+    if (err) {
+        console.error('❌ Database query test failed:', err.message);
+    } else {
+        console.log('✅ Database query test successful:', res.rows[0]);
+    }
 });
 
 export default pool;

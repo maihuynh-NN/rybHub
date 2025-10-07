@@ -11,7 +11,7 @@ export class UserModel {
         const query = `
         SELECT id, username, email, password_hash, full_name, avatar_url, role, created_at
         FROM users
-        WHERE user = $1
+        WHERE username = $1
         `;
         // $1 = parameterized query holder, prevent injection
         const result = await pool.query(query, [username]);
