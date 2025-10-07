@@ -71,12 +71,48 @@ export class AuthController {
             }
             
             // 2.3 compare password
-            const isPasswordValid = await comparePassword(password, user.password_hash);
-            if (!isPasswordValid) {
+            const isValidPassword = await comparePassword(password, user.password_hash);
+            if (!isValidPassword) {
                 return res.status(401).json({ error: '[backend/src/controllers/authController] Invalid username or password' });
             }
-            
+
             // 2.4 generate token
-        } catch (error) {}
+            const token = generateToken(user);
+            res.json({
+                message: 'Login successful',
+                user: {
+                    id: user.id,
+                    username: user.username,
+                    email: user.email,
+                    full_name: user.full_name,
+                    role: user.role
+                },
+                token
+            });
+
+        } catch (error) {
+            console.error('[backend/src/controllers/authController] Error during login:', error);
+            res.status(500).json({ error: '[backend/src/controllers/authController] Internal server error' });
+        }
+    }
+
+    // 3. get user profile
+    static async getProfile(req: Request, res: Response) {
+        try {
+            const user = (req as any).user;
+            res.json({
+                user: {
+                    id: user.id,
+                    username: user.username,
+                    email: user.email,
+                    full_name: user.full_name,
+                    role: user.role
+                }
+            });
+
+        } catch (error) {
+            console.error('[backend/src/controllers/authController] Error retrieving profile:', error);
+            res.status(500).json({ error: '[backend/src/controllers/authController] Internal server error' });
+        }
     }
 };
