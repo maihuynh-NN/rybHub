@@ -4,7 +4,7 @@
 import api from './api';
 import type {AuthResponse, LoginData, RegisterData, User} from '../types/user';
 
-export class AuthServce {
+export class AuthService {
     static async login(data: LoginData): Promise<AuthResponse> {
         const response = await api.post('/auth/login', data);
         return response.data;
