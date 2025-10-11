@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import type {ReactNode} from 'react';
 import { AuthContext } from './AuthContext';
 import { AuthService } from '../services/authService';
@@ -45,9 +45,20 @@ export const AuthProvider = ({ children }: Props) => {
     setLoading(false);
     }, []);
 
+    const hasRole = (roles: string[]): boolean => {
+        return user ? roles.includes(user.role) : false;
+    };
 
   return (
-    <AuthContext.Provider value={{ user, loading, login, register, logout }}>
+    <AuthContext.Provider value={{ 
+        user, 
+        loading, 
+        login, 
+        register, 
+        logout,
+        isAuthenticated: !!user,
+        hasRole,
+         }}>
       {children}
     </AuthContext.Provider>
   );
