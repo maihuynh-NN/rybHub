@@ -6,6 +6,8 @@ import ProtectedRoute from './components/common/ProtectedRoute';
 import MainLayout from './components/common/layout/MainLayout';
 import Login from './pages/auth/Login';
 import Register from './pages/auth/Register';
+import Dashboard from './pages/dashboard/Dashboard';
+
 
 const App: React.FC = () => {
   return (
@@ -22,7 +24,16 @@ const App: React.FC = () => {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             
-       
+            {/* Protected routes */}
+            <Route path="/dashboard" element={
+              <ProtectedRoute>
+                <MainLayout>
+                  <Dashboard />
+                </MainLayout>
+              </ProtectedRoute>
+            } />
+            
+            {/* Placeholder routes for future sprints */}
             
             <Route path="/apartments" element={
               <ProtectedRoute>

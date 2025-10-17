@@ -47,7 +47,7 @@ const Dashboard: React.FC = () => {
         <Row align="middle" justify="space-between">
           <Col>
             <Title level={3} style={{ margin: 0 }}>
-              Welcome back, {user?.full_name || }!
+              Welcome back, {user?.full_name || 'User'}!
             </Title>
             <Text type="secondary">
               Here's what's happening with your apartments today.
@@ -55,7 +55,7 @@ const Dashboard: React.FC = () => {
           </Col>
           <Col>
             <Tag color="blue" style={{ fontSize: '14px', padding: '4px 12px' }}>
-              {user?.role.charAt(0).toUpperCase() + user?.role.slice(1)} User
+              {user?.role? user.role.charAt(0).toUpperCase() + user.role.slice(1) : 'Guest'} User
             </Tag>
           </Col>
         </Row>
