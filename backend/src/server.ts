@@ -8,12 +8,12 @@ dotenv.config();
 import authRoutes from './routes/auth';
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3001;
 
 // Middleware
-app.use(cors()); // Wide open for testing - restrict later
+app.use(cors()); 
 app.use(cors({
-    origin: [process.env.FRONTEND_URL || 'http://localhost:3000', 'null'],
+    origin: [process.env.FRONTEND_URL || 'http://localhost:5173', 'null'],
     credentials: true,
 }));
 app.use(helmet());
