@@ -16,20 +16,24 @@ export const AuthProvider = ({ children }: Props) => {
   const login = async (data: LoginData) => {
     try {
       const res = await AuthService.login(data);
+      AuthService.storeAuth(res);
       setUser(res.user);
       message.success('Login successful');
     } catch (err) {
-        console.error(err);
+      console.error(err);
+      message.error('Login failed');
     }
   };
 
   const register = async (data: RegisterData) => {
     try {
       const res = await AuthService.register(data);
+      AuthService.storeAuth(res);
       setUser(res.user);
       message.success('Registration successful');
     } catch (err) {
       console.error(err);
+      message.error('Registration failed');
     }
   };
 
@@ -39,26 +43,28 @@ export const AuthProvider = ({ children }: Props) => {
     message.info('Logged out');
   };
 
-    useEffect(() => {
-    const storedUser = localStorage.getItem('user');
-    if (storedUser) setUser(JSON.parse(storedUser));
-    setLoading(false);
-    }, []);
+  const hasRole = (roles: string[]): boolean => {
+    return user ? roles.includes(user.role) : false;
+  };
 
-    const hasRole = (roles: string[]): boolean => {
-        return user ? roles.includes(user.role) : false;
-    };
+  useEffect(() => {
+    const storedUser = AuthService.getStoredUser();
+    if (storedUser) setUser(storedUser);
+    setLoading(false);
+  }, []);
 
   return (
-    <AuthContext.Provider value={{ 
-        user, 
-        loading, 
-        login, 
-        register, 
+    <AuthContext.Provider
+      value={{
+        user,
+        loading,
+        login,
+        register,
         logout,
         isAuthenticated: !!user,
         hasRole,
-         }}>
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );

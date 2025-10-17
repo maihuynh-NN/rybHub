@@ -128,10 +128,9 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
                 <div style={{ lineHeight: 1 }}>
                   <Text type="secondary" style={{ fontSize: '12px' }}>
                     {(user?.role
-                        ? user.role.charAt(0).toUpperCase() + user.role.slice(1)
-                        : 'Guest')}
-                    </Text>
-
+                      ? user.role.charAt(0).toUpperCase() + user.role.slice(1)
+                      : 'Guest')}
+                  </Text>
                 </div>
               </div>
             </Space>
